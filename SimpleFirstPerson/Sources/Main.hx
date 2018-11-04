@@ -1,8 +1,10 @@
 // Auto-generated
 package ;
 class Main {
-    public static inline var projectName = 'SimpleFirstPerson';
+    public static inline var projectName = 'armory280test';
     public static inline var projectPackage = 'arm';
+    public static inline var voxelgiVoxelSize = 16.0 / 128;
+    public static inline var voxelgiHalfExtents = 8;
     public static function main() {
         iron.object.BoneAnimation.skinMaxBones = 8;
         iron.object.LightObject.cascadeCount = 4;

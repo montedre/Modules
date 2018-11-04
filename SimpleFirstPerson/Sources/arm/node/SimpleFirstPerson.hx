@@ -1,25 +1,49 @@
 package arm.node;
 
-@:keep class SimpleFirstPeson extends armory.logicnode.LogicTree {
+@:keep class SimpleFirstPerson extends armory.logicnode.LogicTree {
 
 	public function new() { super(); notifyOnAdd(add); }
 
 	override public function add() {
 		var _SetVisible = new armory.logicnode.SetVisibleNode(this);
 		var _OnInit = new armory.logicnode.OnInitNode(this);
-		var _ShowMouse = new armory.logicnode.ShowMouseNode(this);
-		_ShowMouse.addInput(_OnInit, 0);
-		_ShowMouse.addInput(new armory.logicnode.BooleanNode(this, false), 0);
-		_ShowMouse.addOutputs([new armory.logicnode.NullNode(this)]);
-		var _SetMouseLock = new armory.logicnode.SetMouseLockNode(this);
-		_SetMouseLock.addInput(_OnInit, 0);
-		_SetMouseLock.addInput(new armory.logicnode.BooleanNode(this, true), 0);
-		_SetMouseLock.addOutputs([new armory.logicnode.NullNode(this)]);
-		_OnInit.addOutputs([_SetVisible, _ShowMouse, _SetMouseLock]);
+		_OnInit.addOutputs([_SetVisible]);
 		_SetVisible.addInput(_OnInit, 0);
 		_SetVisible.addInput(new armory.logicnode.ObjectNode(this, "Player"), 0);
 		_SetVisible.addInput(new armory.logicnode.BooleanNode(this, false), 0);
 		_SetVisible.addOutputs([new armory.logicnode.NullNode(this)]);
+		var _OnKeyboard = new armory.logicnode.OnKeyboardNode(this);
+		_OnKeyboard.property0 = "Started";
+		_OnKeyboard.property1 = "escape";
+		_OnKeyboard.addOutputs([new armory.logicnode.NullNode(this)]);
+		var _ShowMouse = new armory.logicnode.ShowMouseNode(this);
+		_ShowMouse.addInput(new armory.logicnode.NullNode(this), 0);
+		_ShowMouse.addInput(new armory.logicnode.BooleanNode(this, false), 0);
+		_ShowMouse.addOutputs([new armory.logicnode.NullNode(this)]);
+		var _SetMouseLock = new armory.logicnode.SetMouseLockNode(this);
+		_SetMouseLock.addInput(new armory.logicnode.NullNode(this), 0);
+		_SetMouseLock.addInput(new armory.logicnode.BooleanNode(this, true), 0);
+		_SetMouseLock.addOutputs([new armory.logicnode.NullNode(this)]);
+		var _SetMouseLock_001 = new armory.logicnode.SetMouseLockNode(this);
+		var _ShowMouse_001 = new armory.logicnode.ShowMouseNode(this);
+		var _Alternate = new armory.logicnode.AlternateNode(this);
+		_Alternate.addInput(new armory.logicnode.NullNode(this), 0);
+		_Alternate.addOutputs([_ShowMouse_001]);
+		var _ShowMouse_002 = new armory.logicnode.ShowMouseNode(this);
+		_ShowMouse_002.addInput(_Alternate, 1);
+		_ShowMouse_002.addInput(new armory.logicnode.BooleanNode(this, false), 0);
+		var _SetMouseLock_002 = new armory.logicnode.SetMouseLockNode(this);
+		_SetMouseLock_002.addInput(_ShowMouse_002, 0);
+		_SetMouseLock_002.addInput(new armory.logicnode.BooleanNode(this, true), 0);
+		_SetMouseLock_002.addOutputs([new armory.logicnode.NullNode(this)]);
+		_ShowMouse_002.addOutputs([_SetMouseLock_002]);
+		_Alternate.addOutputs([_ShowMouse_002]);
+		_ShowMouse_001.addInput(_Alternate, 0);
+		_ShowMouse_001.addInput(new armory.logicnode.BooleanNode(this, true), 0);
+		_ShowMouse_001.addOutputs([_SetMouseLock_001]);
+		_SetMouseLock_001.addInput(_ShowMouse_001, 0);
+		_SetMouseLock_001.addInput(new armory.logicnode.BooleanNode(this, false), 0);
+		_SetMouseLock_001.addOutputs([new armory.logicnode.NullNode(this)]);
 		var _CameraController = new armory.logicnode.CameraController(this);
 		var _OnUpdate = new armory.logicnode.OnUpdateNode(this);
 		var _PlayerController = new armory.logicnode.PlayerController(this);
@@ -55,7 +79,7 @@ package arm.node;
 		_PlayerController.addInput(new armory.logicnode.BooleanNode(this, false), 0);
 		_PlayerController.addInput(new armory.logicnode.FloatNode(this, 1.5), 0);
 		_PlayerController.addInput(new armory.logicnode.BooleanNode(this, false), 0);
-		_PlayerController.addInput(new armory.logicnode.BooleanNode(this, false), 0);
+		_PlayerController.addInput(new armory.logicnode.BooleanNode(this, true), 0);
 		_PlayerController.addInput(new armory.logicnode.FloatNode(this, 0.5), 0);
 		_PlayerController.addOutputs([new armory.logicnode.NullNode(this)]);
 		_OnUpdate.addOutputs([_PlayerController, _CameraController]);
@@ -87,29 +111,5 @@ package arm.node;
 		_CameraController.addInput(new armory.logicnode.FloatNode(this, 0.0), 0);
 		_CameraController.addInput(new armory.logicnode.FloatNode(this, 0.0), 0);
 		_CameraController.addOutputs([new armory.logicnode.NullNode(this)]);
-		var _SetMouseLock_002 = new armory.logicnode.SetMouseLockNode(this);
-		var _ShowMouse_002 = new armory.logicnode.ShowMouseNode(this);
-		var _Alternate = new armory.logicnode.AlternateNode(this);
-		var _OnKeyboard = new armory.logicnode.OnKeyboardNode(this);
-		_OnKeyboard.property0 = "Started";
-		_OnKeyboard.property1 = "escape";
-		_OnKeyboard.addOutputs([_Alternate]);
-		_Alternate.addInput(_OnKeyboard, 0);
-		var _ShowMouse_001 = new armory.logicnode.ShowMouseNode(this);
-		_ShowMouse_001.addInput(_Alternate, 0);
-		_ShowMouse_001.addInput(new armory.logicnode.BooleanNode(this, true), 0);
-		var _SetMouseLock_001 = new armory.logicnode.SetMouseLockNode(this);
-		_SetMouseLock_001.addInput(_ShowMouse_001, 0);
-		_SetMouseLock_001.addInput(new armory.logicnode.BooleanNode(this, false), 0);
-		_SetMouseLock_001.addOutputs([new armory.logicnode.NullNode(this)]);
-		_ShowMouse_001.addOutputs([_SetMouseLock_001]);
-		_Alternate.addOutputs([_ShowMouse_001]);
-		_Alternate.addOutputs([_ShowMouse_002]);
-		_ShowMouse_002.addInput(_Alternate, 1);
-		_ShowMouse_002.addInput(new armory.logicnode.BooleanNode(this, false), 0);
-		_ShowMouse_002.addOutputs([_SetMouseLock_002]);
-		_SetMouseLock_002.addInput(_ShowMouse_002, 0);
-		_SetMouseLock_002.addInput(new armory.logicnode.BooleanNode(this, true), 0);
-		_SetMouseLock_002.addOutputs([new armory.logicnode.NullNode(this)]);
 	}
 }
